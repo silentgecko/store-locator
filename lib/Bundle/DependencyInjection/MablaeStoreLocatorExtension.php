@@ -22,6 +22,14 @@ class MablaeStoreLocatorExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
+
+        $bundles = $container->getParameter('bundles');
+        if (!isset($bundles['BazingaGeocoderBundle'])) {
+            throw new \InvalidArgumentException(
+                'The BazingaGeocoderBundle needs to be registered in order to use StoreLocatorBundle.'
+            );
+        }
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
