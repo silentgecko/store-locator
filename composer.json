@@ -2,6 +2,7 @@
     "name": "mablae/store-locator",
     "description": "",
     "type": "library",
+    "license": "MIT",
     "autoload": {
       "psr-4": {
         "Mablae\\StoreLocator\\" : "lib"
