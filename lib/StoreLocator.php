@@ -3,9 +3,10 @@
 namespace Mablae\StoreLocator;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Geocoder\Exception\NoResult;
+use Geocoder\Exception\CollectionIsEmpty;
 use Geocoder\Model\Address;
 use Geocoder\Model\AddressCollection;
+use Geocoder\Model\AdminLevelCollection;
 use Geocoder\Model\Coordinates;
 use Geocoder\ProviderAggregator;
 use Mablae\StoreLocator\DistanceCalculator\DistanceCalculatorInterface;
@@ -16,99 +17,70 @@ use Mablae\StoreLocator\StoreList\StoreListProvider;
 
 final class StoreLocator
 {
-
-    /**
-     * @var ArrayCollection
-     */
-    private $storeList;
-
-    /**
-     * @var ProviderAggregator
-     */
-    private $geocoder;
-    /**
-     * @var DistanceCalculatorInterface
-     */
-    private $distanceCalculator;
-    /**
-     * @var StoreListProvider
-     */
-    private $storeListProvider;
+    private ArrayCollection $storeList;
+    private ProviderAggregator $geocoder;
+    private DistanceCalculatorInterface $distanceCalculator;
+    private StoreListProvider $storeListProvider;
 
     public function __construct(
         StoreListProvider $storeRepository,
         ProviderAggregator $geocoder,
         DistanceCalculatorInterface $distanceCalculator
     ) {
-
         $this->geocoder = $geocoder;
         $this->distanceCalculator = $distanceCalculator;
         $this->storeListProvider = $storeRepository;
     }
+
     public function locateByIpAddress(string $ipAddress): LocatedStoreList
     {
         $this->initStores();
 
-        try {
-            $results = $this->geocoder->using('free_geo_ip')->geocode($ipAddress);
-        } catch (NoResult $e) {
-            throw $e;
-        }
-
-        if ($results->count() === 0) {
-            throw new NoResult();
-        }
+        $results = $this->geocoder->using('free_geo_ip')->geocode($ipAddress);
 
         return $this->calculateDistances($results);
-
-
     }
+
     public function locateBySearchTerm(string $searchTerm): LocatedStoreList
     {
         $this->initStores();
-        try {
-            $results = $this->geocoder->using('google_maps')->geocode($searchTerm);
-        } catch (NoResult $e) {
-            throw $e;
-        }
-
-
-        if ($results->count() === 0) {
-            throw new NoResult();
-        }
+        $results = $this->geocoder->using('google_maps')->geocode($searchTerm);
 
         return $this->calculateDistances($results);
-
     }
+
     public function locateByCoordinate(Coordinates $coordinates): LocatedStoreList
     {
         $this->initStores();
 
         return new LocatedStoreList(
-            $this->locate($coordinates), new Address(
+            $this->locate($coordinates),
+            new Address(
+                self::class,
+                new AdminLevelCollection,
                 $coordinates,
                 null,
                 null,
                 null,
                 null,
-                'Koordinaten: '.$coordinates->getLatitude().'/'.$coordinates->getLongitude()
+                'Koordinaten: ' . $coordinates->getLatitude() . '/' . $coordinates->getLongitude()
             )
         );
-
     }
-    private function initStores()
+
+    private function initStores(): void
     {
         if (null === $this->storeList) {
             $this->storeList = $this->storeListProvider->findAll();
         }
     }
 
-    /**
-     * @param $results
-     * @return LocatedStoreList
-     */
     private function calculateDistances(AddressCollection $results): LocatedStoreList
     {
+        if (empty($results)) {
+            throw new CollectionIsEmpty();
+        }
+
         $address = $results->first();
 
         $results = $this->locate($address->getCoordinates());
@@ -116,15 +88,11 @@ final class StoreLocator
         return new LocatedStoreList($results, $address);
     }
 
-    /**
-     * @param Coordinates $coordinates
-     * @return ArrayCollection
-     */
     private function locate(Coordinates $coordinates): ArrayCollection
     {
         $point = new Point($coordinates->getLatitude(), $coordinates->getLongitude());
 
-        $results = new ArrayCollection();
+        $results = new ArrayCollection;
 
         foreach ($this->storeList as $storePage) {
             $distance = $this->distanceCalculator->calculateDistance($point, $storePage);
@@ -133,33 +101,21 @@ final class StoreLocator
             $results->add($locatedStore);
         }
 
-
         return $this->sortResultsByDistance($results);
-
     }
 
-    /**
-     * @param $results ArrayCollection
-     * @return ArrayCollection
-     */
     private function sortResultsByDistance(ArrayCollection $results): ArrayCollection
     {
         $iterator = $results->getIterator();
         $iterator->uasort(
-            function ($a, $b) {
-
-                /**
+            fn($a, $b) => /**
                  * @var $a LocatedStore
                  * @var $b LocatedStore
                  */
-                return ($a->getDistanceToPoint() < $b->getDistanceToPoint()) ? -1 : 1;
-            }
+            ($a->getDistanceToPoint() < $b->getDistanceToPoint()) ? -1 : 1
         );
 
         return new ArrayCollection(iterator_to_array($iterator));
     }
-
-
-
 
 }

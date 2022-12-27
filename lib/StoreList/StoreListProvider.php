@@ -2,14 +2,15 @@
 
 namespace Mablae\StoreLocator\StoreList;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Mablae\StoreLocator\Model\PointInterface;
 
 interface StoreListProvider
 {
 
     /**
-     * @return PointInterface[]|array
+     * @return ArrayCollection<PointInterface>
      */
-    public function findAll();
+    public function findAll(): ArrayCollection;
 
 }

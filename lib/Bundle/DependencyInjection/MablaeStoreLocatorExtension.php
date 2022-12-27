@@ -2,6 +2,7 @@
 
 namespace Mablae\StoreLocator\Bundle\DependencyInjection;
 
+use InvalidArgumentException;
 use Mablae\StoreLocator\StoreLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -10,11 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-/**
- * This is the class that loads and manages your bundle configuration.
- *
- * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
- */
 class MablaeStoreLocatorExtension extends Extension
 {
     /**
@@ -25,7 +21,7 @@ class MablaeStoreLocatorExtension extends Extension
 
         $bundles = $container->getParameter('bundles');
         if (!isset($bundles['BazingaGeocoderBundle'])) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'The BazingaGeocoderBundle needs to be registered in order to use StoreLocatorBundle.'
             );
         }
@@ -43,7 +39,7 @@ class MablaeStoreLocatorExtension extends Extension
         ]);
 
         $container->addDefinitions([
-            'mablae.store_locator' => $storeLocator
+            StoreLocator::class => $storeLocator
         ]);
     }
 }

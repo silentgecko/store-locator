@@ -12,10 +12,7 @@ namespace Mablae\StoreLocator\Model;
 class LocatedStore
 {
 
-    /**
-     * @var float
-     */
-    private $distanceToPoint;
+    private float $distanceToPoint;
 
 
     private $locatedItem;
@@ -27,17 +24,11 @@ class LocatedStore
         $this->locatedItem = $locatedItem;
     }
 
-    /**
-     * @return float
-     */
     public function getDistanceToPoint(): float
     {
         return $this->distanceToPoint;
     }
 
-    /**
-     * @return mixed
-     */
     public function getLocatedItem()
     {
         return $this->locatedItem;

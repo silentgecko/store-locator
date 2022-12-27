@@ -5,7 +5,8 @@ namespace Mablae\StoreLocator\Model;
 
 interface PointInterface
 {
-    public function getLatitude() : float;
-    public function getLongitude() : float;
+    public function getLatitude(): float;
+
+    public function getLongitude(): float;
 
 }
