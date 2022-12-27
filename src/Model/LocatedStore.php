@@ -6,7 +6,7 @@
  * Time: 01:45
  */
 
-namespace Mablae\StoreLocator\Model;
+namespace Silentgecko\StoreLocator\Model;
 
 class LocatedStore
 {

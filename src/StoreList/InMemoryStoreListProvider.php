@@ -1,9 +1,9 @@
 <?php
 
-namespace Mablae\StoreLocator\StoreList;
+namespace Silentgecko\StoreLocator\StoreList;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Mablae\StoreLocator\Model\PointInterface;
+use Silentgecko\StoreLocator\Model\PointInterface;
 
 class InMemoryStoreListProvider implements StoreListProvider
 {

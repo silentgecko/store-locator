@@ -1,6 +1,6 @@
 <?php
 
-namespace Mablae\StoreLocator\DistanceCalculator;
+namespace Silentgecko\StoreLocator\DistanceCalculator;
 
 use League\Geotools\Coordinate\Coordinate;
 use League\Geotools\Geotools;

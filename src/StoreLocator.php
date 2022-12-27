@@ -1,6 +1,6 @@
 <?php
 
-namespace Mablae\StoreLocator;
+namespace Silentgecko\StoreLocator;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Geocoder\Exception\CollectionIsEmpty;
@@ -9,11 +9,11 @@ use Geocoder\Model\AddressCollection;
 use Geocoder\Model\AdminLevelCollection;
 use Geocoder\Model\Coordinates;
 use Geocoder\ProviderAggregator;
-use Mablae\StoreLocator\DistanceCalculator\DistanceCalculatorInterface;
-use Mablae\StoreLocator\Model\LocatedStore;
-use Mablae\StoreLocator\Model\LocatedStoreList;
-use Mablae\StoreLocator\Model\Point;
-use Mablae\StoreLocator\StoreList\StoreListProvider;
+use Silentgecko\StoreLocator\DistanceCalculator\DistanceCalculatorInterface;
+use Silentgecko\StoreLocator\Model\LocatedStore;
+use Silentgecko\StoreLocator\Model\LocatedStoreList;
+use Silentgecko\StoreLocator\Model\Point;
+use Silentgecko\StoreLocator\StoreList\StoreListProvider;
 
 final class StoreLocator
 {

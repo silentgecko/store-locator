@@ -1,5 +1,5 @@
 <?php
-namespace Mablae\StoreLocator\Model;
+namespace Silentgecko\StoreLocator\Model;
 
 class Point implements PointInterface
 {

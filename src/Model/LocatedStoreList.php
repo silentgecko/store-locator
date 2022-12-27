@@ -1,5 +1,5 @@
 <?php
-namespace Mablae\StoreLocator\Model;
+namespace Silentgecko\StoreLocator\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Geocoder\Model\Address;
