@@ -8,7 +8,6 @@
 
 namespace Mablae\StoreLocator\Model;
 
-
 class LocatedStore
 {
 

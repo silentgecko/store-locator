@@ -1,8 +1,5 @@
 <?php
-
-
 namespace Mablae\StoreLocator\Model;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Geocoder\Model\Address;
@@ -28,6 +25,4 @@ final class LocatedStoreList
     {
         return $this->storeList;
     }
-
-
 }

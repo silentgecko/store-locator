@@ -8,7 +8,6 @@ use Mablae\StoreLocator\Model\PointInterface;
 
 class DistanceCalculatorGeotools implements DistanceCalculatorInterface
 {
-
     private Geotools $geotools;
 
     public function __construct()

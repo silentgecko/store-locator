@@ -5,17 +5,13 @@
     "license": "MIT",
     "autoload": {
       "psr-4": {
-        "Mablae\\StoreLocator\\" : "lib"
+        "Mablae\\StoreLocator\\" : "src/"
       }
     },
     "require": {
         "php": "^8.0",
         "league/geotools": "^1",
         "willdurand/geocoder": "^4",
-        "symfony/console": "^5.4 || ^6.0",
-        "symfony/http-foundation": "^5.4 || ^6.0",
-        "sensio/framework-extra-bundle": "^5.4 || ^6.0",
-        "symfony/framework-bundle": "^5.4 || ^6.0",
         "doctrine/collections": "^2.1"
     },
     "require-dev": {

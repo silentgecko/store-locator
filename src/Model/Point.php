@@ -1,7 +1,5 @@
 <?php
-
 namespace Mablae\StoreLocator\Model;
-
 
 class Point implements PointInterface
 {

@@ -7,7 +7,6 @@ use Mablae\StoreLocator\Model\PointInterface;
 
 interface StoreListProvider
 {
-
     /**
      * @return ArrayCollection<PointInterface>
      */
