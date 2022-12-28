@@ -4,7 +4,7 @@ namespace Silentgecko\StoreLocator\DistanceCalculator;
 
 use League\Geotools\Coordinate\Coordinate;
 use League\Geotools\Geotools;
-use Mablae\StoreLocator\Model\PointInterface;
+use Silentgecko\StoreLocator\Model\PointInterface;
 
 class DistanceCalculatorGeotools implements DistanceCalculatorInterface
 {

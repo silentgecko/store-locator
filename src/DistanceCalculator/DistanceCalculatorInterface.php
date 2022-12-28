@@ -2,7 +2,7 @@
 
 namespace Silentgecko\StoreLocator\DistanceCalculator;
 
-use Mablae\StoreLocator\Model\PointInterface;
+use Silentgecko\StoreLocator\Model\PointInterface;
 
 interface DistanceCalculatorInterface
 {

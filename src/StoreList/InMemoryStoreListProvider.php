@@ -5,7 +5,7 @@ namespace Silentgecko\StoreLocator\StoreList;
 use Doctrine\Common\Collections\ArrayCollection;
 use Silentgecko\StoreLocator\Model\PointInterface;
 
-class InMemoryStoreListProvider implements StoreListProvider
+class InMemoryStoreListProvider
 {
     private array $stores = [
         [
